@@ -24,6 +24,7 @@ library:
     - unison-prelude
     - unison-util-rope
     - zlib
+    - data-binary-ieee754
 
 tests:
   util-bytes-tests:

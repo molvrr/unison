@@ -2998,6 +2998,7 @@ declareForeigns = do
   declareForeign Untracked "Bytes.encodeNat64le" (wordDirect Ty.natRef) . mkForeign $ pure . Bytes.encodeNat64le
   declareForeign Untracked "Bytes.encodeNat32be" (wordDirect Ty.natRef) . mkForeign $ pure . Bytes.encodeNat32be
   declareForeign Untracked "Bytes.encodeNat32le" (wordDirect Ty.natRef) . mkForeign $ pure . Bytes.encodeNat32le
+  declareForeign Untracked "Bytes.encodeFloat32le" (wordDirect Ty.floatRef) . mkForeign $ pure . Bytes.encodeFloat32le
   declareForeign Untracked "Bytes.encodeNat16be" (wordDirect Ty.natRef) . mkForeign $ pure . Bytes.encodeNat16be
   declareForeign Untracked "Bytes.encodeNat16le" (wordDirect Ty.natRef) . mkForeign $ pure . Bytes.encodeNat16le
 

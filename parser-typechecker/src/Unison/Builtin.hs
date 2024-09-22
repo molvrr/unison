@@ -410,6 +410,7 @@ builtinsSrc =
     B "Bytes.encodeNat64le" $ nat --> bytes,
     B "Bytes.encodeNat32be" $ nat --> bytes,
     B "Bytes.encodeNat32le" $ nat --> bytes,
+    B "Bytes.encodeFloat32le" $ float --> bytes,
     B "Bytes.encodeNat16be" $ nat --> bytes,
     B "Bytes.encodeNat16le" $ nat --> bytes,
     B "Float.+" $ float --> float --> float,

@@ -46,6 +46,7 @@ module Unison.Util.Bytes
     decodeNat64le,
     decodeUtf8,
     encodeUtf8,
+    encodeFloat32le,
     zlibCompress,
     zlibDecompress,
     gzipCompress,
@@ -53,12 +54,13 @@ module Unison.Util.Bytes
   )
 where
 
+import Data.Binary.IEEE754 (floatToWord)
 import Basement.Block.Mutable (Block (Block))
 import Codec.Compression.GZip qualified as GZip
 import Codec.Compression.Zlib qualified as Zlib
 import Control.DeepSeq (NFData (..))
 import Control.Monad.Primitive (unsafeIOToPrim)
-import Data.Bits (shiftL, shiftR, (.|.))
+import Data.Bits (shiftL, shiftR, (.|.), (.&.))
 import Data.ByteArray qualified as BA
 import Data.ByteArray.Encoding qualified as BE
 import Data.ByteString qualified as B
@@ -335,6 +337,12 @@ fillLE n i = fromIntegral (shiftR n (i * 8))
 
 encodeNat64le :: Word64 -> Bytes
 encodeNat64le n = Bytes (R.one (V.generate 8 (fillLE n)))
+
+encodeFloat32le :: Double -> Bytes
+encodeFloat32le n =
+    let w = floatToWord (realToFrac n :: Float)
+        bytes = [ fromIntegral (shiftR w (8 * i) .&. 0xFF) | i <- [0..3] ]
+    in Bytes (R.one (V.fromList bytes))
 
 encodeNat32le :: Word64 -> Bytes
 encodeNat32le n = Bytes (R.one (V.generate 4 (fillLE n)))
